@@ -19,7 +19,7 @@
 --
 
 --------------------------------------------------------
--- 
+--
 -- !!! log in as a user with DBA privilege (master user in RDS)
 --
 --------------------------------------------------------
@@ -31,7 +31,7 @@ spool install-rds.out
 --------------------------------------------------------
 --
 -- The dms_sample user/schema contains the objects and data
--- for this database. 
+-- for this database.
 --
 -- The following script creates the user dms_sample/dms_sample
 -- it is recommended that you change the password
@@ -44,7 +44,7 @@ spool install-rds.out
 
 ---------------------------------------------------------
 -- In order to capture changes supplemental logging is required
--- The following commands turn on supplemental logging and increase 
+-- The following commands turn on supplemental logging and increase
 -- archive retention (RDS)
 ---------------------------------------------------------
 
@@ -54,14 +54,17 @@ spool install-rds.out
 ---------------------------------------------------------
 exec rdsadmin.rdsadmin_util.alter_supplemental_logging('ADD');
 exec rdsadmin.rdsadmin_util.alter_supplemental_logging('ADD','PRIMARY KEY');
-exec rdsadmin.rdsadmin_util.set_configuration('archivelog retention hours',8);
+exec rdsadmin.rdsadmin_util.set_configuration('archivelog retention hours',24);
+
+exec rdsadmin.rdsadmin_master_util.create_archivelog_dir;
+exec rdsadmin.rdsadmin_master_util.create_onlinelog_dir;
 
 
 --------------------------------------------------------
--- 
--- In general, it's a good idea to create and use an 
--- account other than the account that owns the schema 
--- objects for the migration. The following creates the 
+--
+-- In general, it's a good idea to create and use an
+-- account other than the account that owns the schema
+-- objects for the migration. The following creates the
 -- user dms_user/dms_user which can be used to migrate
 -- the objects contained in the dms_sample account.
 -- It is recommended that you change the password
@@ -72,7 +75,7 @@ exec rdsadmin.rdsadmin_util.set_configuration('archivelog retention hours',8);
 
 --------------------------------------------------------
 --
--- If you want the dms_user to use the Schema Conversion 
+-- If you want the dms_user to use the Schema Conversion
 -- Tool (SCT) you will need to give them the following privileges
 --
 --------------------------------------------------------

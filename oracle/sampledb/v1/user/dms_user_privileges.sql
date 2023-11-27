@@ -22,41 +22,59 @@
 -- tables and data from the dms_sample schema
 --
 ---------------------------------------------------------
-#grant SELECT ANY TRANSACTION to dms_user;
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$ARCHIVED_LOG','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOG','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGFILE','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$DATABASE','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$THREAD','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$PARAMETER','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$NLS_PARAMETERS','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$TIMEZONE_NAMES','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$TRANSACTION','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_OBJECTS','DMS_USER'); 
-exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_REGISTRY','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('OBJ$','DMS_USER');
-grant SELECT on ALL_INDEXES to dms_user;
-grant SELECT on ALL_OBJECTS to dms_user;
-grant SELECT on ALL_TABLES to dms_user;
-grant SELECT on ALL_USERS to dms_user;
-grant SELECT on ALL_CATALOG to dms_user;
-grant SELECT on ALL_CONSTRAINTS to dms_user;
-grant SELECT on ALL_CONS_COLUMNS to dms_user;
-grant SELECT on ALL_TAB_COLS to dms_user;
-grant SELECT on ALL_IND_COLUMNS to dms_user;
-grant SELECT on ALL_LOG_GROUPS to dms_user;
+GRANT SELECT ANY TRANSACTION to DMS_USER;
+GRANT SELECT on DBA_TABLESPACES to DMS_USER;
+GRANT EXECUTE on rdsadmin.rdsadmin_util to DMS_USER;
+GRANT LOGMINING to DMS_USER;
 
-exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_TABLESPACES','DMS_USER');
-grant SELECT on ALL_TAB_PARTITIONS to dms_user;
-exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_ENCRYPTED_COLUMNS','DMS_USER');
-grant SELECT on ALL_VIEWS  to dms_user;
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_VIEWS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_TAB_PARTITIONS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_INDEXES', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_OBJECTS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_TABLES', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_USERS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_CATALOG', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_CONSTRAINTS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_CONS_COLUMNS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_TAB_COLS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_IND_COLUMNS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_LOG_GROUPS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$ARCHIVED_LOG', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOG', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGFILE', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$DATABASE', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$THREAD', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$PARAMETER', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$NLS_PARAMETERS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$TIMEZONE_NAMES', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$TRANSACTION', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$CONTAINERS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_REGISTRY', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('OBJ$', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('ALL_ENCRYPTED_COLUMNS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_LOGS', 'DMS_USER', 'SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_CONTENTS','DMS_USER','SELECT');
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBMS_LOGMNR', 'DMS_USER', 'EXECUTE');
 
-exec rdsadmin.rdsadmin_util.grant_sys_object('DBMS_LOGMNR','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_LOGS','DMS_USER');
-exec rdsadmin.rdsadmin_util.grant_sys_object('V_$LOGMNR_CONTENTS','DMS_USER');
-grant logmining to dms_user;
+exec rdsadmin.rdsadmin_util.grant_sys_object('REGISTRY$SQLPATCH', 'DMS_USER', 'SELECT');
 
--- for use with SCT
-grant SELECT ANY DICTIONARY to dms_user
+-- (for Amazon RDS Active Dataguard Standby (ADG))
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$STANDBY_LOG', 'DMS_USER', 'SELECT');
 
+-- (for transparent data encryption (TDE))
 
+exec rdsadmin.rdsadmin_util.grant_sys_object('ENC$', 'DMS_USER', 'SELECT');
+
+-- (for validation with LOB columns)
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBMS_CRYPTO', 'DMS_USER', 'EXECUTE');
+
+-- (for binary reader)
+exec rdsadmin.rdsadmin_util.grant_sys_object('DBA_DIRECTORIES','DMS_USER','SELECT');
+
+-- Required when the source database is Oracle Data guard, and Oracle Standby is used in the latest release of DMS version 3.4.6, version 3.4.7, and higher.
+
+exec rdsadmin.rdsadmin_util.grant_sys_object('V_$DATAGUARD_STATS', 'DMS_USER', 'SELECT');
+
+-- (for binary reader)
+GRANT READ ON DIRECTORY ONLINELOG_DIR TO DMS_USER;
+GRANT READ ON DIRECTORY ARCHIVELOG_DIR TO DMS_USER;
